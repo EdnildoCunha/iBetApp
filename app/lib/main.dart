@@ -26,12 +26,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   double _valorSlider = 10;
-  //function save value count
-  void _saveValue() {
-    setState(() {});
-  }
+  double _total;
+
+  final inputTotal = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +46,15 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextField(
+              controller: inputTotal,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(), hintText: "Total da conta"),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(25.7),
+                  ),
+                  hintText: "Total da conta"),
             ),
           ),
           Padding(
@@ -61,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
               min: 10,
               max: 100,
               divisions: 18,
-              //label: _valorSlider.round().toString(),
               onChanged: (double valor) {
                 setState(() {
                   _valorSlider = valor;
@@ -102,10 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
         onPressed: () {
-          return _saveValue();
+          _total = double.parse(inputTotal.text) * (_valorSlider / 100);
+          print("$_total");
         },
-        child: Icon(Icons.check),
+        child: Icon(Icons.check, color: Colors.red),
       ),
     );
   }
