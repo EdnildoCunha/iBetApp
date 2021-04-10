@@ -1,2 +1,2 @@
 # iBetApp
-Aplicativo de rachar conta, com apostas.
+Aplicativo de rachar conta com apostas.
