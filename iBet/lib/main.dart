@@ -1,7 +1,8 @@
-import 'package:app/Resultado.dart';
-import 'package:app/jogo_dado.dart';
-import 'package:app/jogos.dart';
+import 'package:iBet/Resultado.dart';
+import 'package:iBet/jogo_dado.dart';
+import 'package:iBet/jogos.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,6 +11,9 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return MaterialApp(
       title: 'iBet',
       initialRoute: '/',
@@ -46,10 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.red,
       appBar: AppBar(
-        leading: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Image.asset("assets/iBet_logo.png")),
         title: Text("Aposta"),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Image.asset("assets/iBet_logo.png"),
+          )
+        ],
       ),
       body: Column(
         children: [
@@ -92,19 +99,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     Text(
                       "$_valorSlider",
                       style: TextStyle(
-                        fontSize: 190,
+                        fontSize: 185,
                         color: Colors.white,
                       ),
                     ),
                     Text("%",
                         style: TextStyle(
-                          fontSize: 70,
+                          fontSize: 65,
                           color: Colors.white,
                         )),
                   ],
                 ),
                 Text(
-                  "do valor total da conta será apostado:",
+                  "do valor total da conta será apostado",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
@@ -120,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           _total = double.parse(inputTotal.text) * (_valorSlider / 100);
           print("$_total");
-          Navigator.pushNamed(context, '/jogos');
+          Navigator.pushNamed(context, '/jogos', arguments: _total);
         },
         child: Icon(Icons.check, color: Colors.red),
       ),
