@@ -1,3 +1,6 @@
+import 'package:app/Resultado.dart';
+import 'package:app/jogo_dado.dart';
+import 'package:app/jogos.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,10 +12,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'iBet',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(),
+        '/jogos': (context) => Jogos(),
+        '/jogos/cacaniquel': (context) => CacaNiquel(),
+        '/jogos/cacaniquel/play': (context) => CacaNiquelJogo(),
+        '/resultado': (context) => Resultado(),
+      },
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: MyHomePage(title: 'Aposta'),
     );
   }
 }
@@ -39,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
         leading: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Image.asset("assets/iBet_logo.png")),
-        title: Text(widget.title),
+        title: Text("Aposta"),
       ),
       body: Column(
         children: [
@@ -110,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           _total = double.parse(inputTotal.text) * (_valorSlider / 100);
           print("$_total");
+          Navigator.pushNamed(context, '/jogos');
         },
         child: Icon(Icons.check, color: Colors.red),
       ),
